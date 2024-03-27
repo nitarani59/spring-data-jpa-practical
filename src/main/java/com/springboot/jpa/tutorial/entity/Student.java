@@ -1,16 +1,21 @@
 package com.springboot.jpa.tutorial.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,4 +34,10 @@ public class Student {
     //Gurdian Details
     @Embedded
     private Guardian guardian;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "student_course_map",
+                   joinColumns =  @JoinColumn(name = "student_id", referencedColumnName = "id"),
+                   inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
+    private List<Course> courses;
 }
