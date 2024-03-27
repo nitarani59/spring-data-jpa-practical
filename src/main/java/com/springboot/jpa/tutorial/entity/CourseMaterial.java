@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,4 +29,7 @@ public class CourseMaterial {
     @GeneratedValue(generator = "course_mat_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
     private String material;
+
+    @OneToOne(mappedBy = "courseMaterial")
+    private Course course;
 }
